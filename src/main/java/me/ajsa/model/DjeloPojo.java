@@ -5,16 +5,16 @@ public class DjeloPojo {
     private String naziv;
     private String opis;
     private int godinaKreiranje;
-    private int idUmjetnika;
-    private int idVrste;
+    private int idUmjetnik;
+    private int idVrsta;
 
     public DjeloPojo(int id, String naziv, String opis, int godinaKreiranje, int idUmjetnika, int idVrste) {
         this.id = id;
         this.naziv = naziv;
         this.opis = opis;
         this.godinaKreiranje = godinaKreiranje;
-        this.idUmjetnika = idUmjetnika;
-        this.idVrste = idVrste;
+        this.idUmjetnik = idUmjetnika;
+        this.idVrsta = idVrste;
     }
 
     public int getId() {
@@ -49,19 +49,19 @@ public class DjeloPojo {
         this.naziv = naziv;
     }
 
-    public int getIdUmjetnika() {
-        return idUmjetnika;
+    public int getIdUmjetnik() {
+        return idUmjetnik;
     }
 
-    public void setIdUmjetnika(int idUmjetnika) {
-        this.idUmjetnika = idUmjetnika;
+    public void setIdUmjetnik(int idUmjetnik) {
+        this.idUmjetnik = idUmjetnik;
     }
 
-    public int getIdVrste() {
-        return idVrste;
+    public int getIdVrsta() {
+        return idVrsta;
     }
 
-    public void setIdVrste(int idVrste) {
-        this.idVrste = idVrste;
+    public void setIdVrsta(int idVrsta) {
+        this.idVrsta = idVrsta;
     }
 }
