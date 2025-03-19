@@ -1,12 +1,12 @@
 package me.ajsa.model;
 
-public class KriticarPojo {
+public class Umjetnik {
     private int id;
     private String ime;
     private String prezime;
     private int godinaRodjenja;
 
-    public KriticarPojo(int id, String ime, String prezime, int godinaRodjenja) {
+    public Umjetnik(int id, String ime, String prezime, int godinaRodjenja) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;
@@ -19,14 +19,6 @@ public class KriticarPojo {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getIme() {
-        return ime;
-    }
-
-    public void setIme(String ime) {
-        this.ime = ime;
     }
 
     public String getPrezime() {

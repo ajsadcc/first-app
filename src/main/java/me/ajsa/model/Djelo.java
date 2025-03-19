@@ -1,14 +1,26 @@
 package me.ajsa.model;
 
-public class DjeloPojo {
+import java.util.List;
+
+public class Djelo {
     private int id;
     private String naziv;
     private String opis;
     private int godinaKreiranje;
     private int idUmjetnik;
     private int idVrsta;
+    private List<Kritika> kritike;
 
-    public DjeloPojo(int id, String naziv, String opis, int godinaKreiranje, int idUmjetnika, int idVrste) {
+    public List<Kritika> getKritike() {
+        return kritike;
+    }
+
+    public void setKritike(List<Kritika> kritike) {
+        this.kritike = kritike;
+    }
+
+
+    public Djelo(int id, String naziv, String opis, int godinaKreiranje, int idUmjetnika, int idVrste) {
         this.id = id;
         this.naziv = naziv;
         this.opis = opis;
@@ -16,11 +28,6 @@ public class DjeloPojo {
         this.idUmjetnik = idUmjetnika;
         this.idVrsta = idVrste;
     }
-
-    public int getId() {
-        return id;
-    }
-
     public void setId(int id) {
         this.id = id;
     }

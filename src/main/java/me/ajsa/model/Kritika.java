@@ -1,12 +1,12 @@
 package me.ajsa.model;
 
-public class KriticarDjeloPojo {
+public class Kritika {
     private int idDjela;
     private int idKriticar;
     private int ocjena;
     private String obrazlozenje;
 
-    public KriticarDjeloPojo(int idDjela, int idKriticar, int ocjena, String obrazlozenje) {
+    public Kritika(int idDjela, int idKriticar, int ocjena, String obrazlozenje) {
         this.idDjela = idDjela;
         this.idKriticar = idKriticar;
         this.ocjena = ocjena;

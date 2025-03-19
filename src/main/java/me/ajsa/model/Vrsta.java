@@ -1,10 +1,10 @@
 package me.ajsa.model;
 
-public class VrstaPojo {
+public class Vrsta {
     private int id;
     private String naziv;
 
-    public VrstaPojo(int id, String naziv) {
+    public Vrsta(int id, String naziv) {
         this.id = id;
         this.naziv = naziv;
     }
