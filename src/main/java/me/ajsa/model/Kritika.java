@@ -5,7 +5,7 @@ public class Kritika {
     private int idKriticar;
     private int ocjena;
     private String obrazlozenje;
-
+//medjutabela
     public Kritika(int idDjela, int idKriticar, int ocjena, String obrazlozenje) {
         this.idDjela = idDjela;
         this.idKriticar = idKriticar;
