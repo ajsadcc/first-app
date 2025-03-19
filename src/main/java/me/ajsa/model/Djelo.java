@@ -1,5 +1,8 @@
 package me.ajsa.model;
 
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+
 import java.util.List;
 
 public class Djelo {
@@ -7,8 +10,11 @@ public class Djelo {
     private String naziv;
     private String opis;
     private int godinaKreiranje;
+    @OneToMany
     private int idUmjetnik;
+    @OneToMany
     private int idVrsta;
+    @ManyToMany
     private List<Kritika> kritike;
 
     public List<Kritika> getKritike() {

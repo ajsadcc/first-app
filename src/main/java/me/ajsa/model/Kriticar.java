@@ -1,5 +1,7 @@
 package me.ajsa.model;
 
+import jakarta.persistence.ManyToMany;
+
 import java.util.List;
 
 public class Kriticar {
@@ -7,8 +9,10 @@ public class Kriticar {
     private String ime;
     private String prezime;
     private int godinaRodjenja;
+    @ManyToMany
     private List<Kritika> kritike;
 
+    @ManyToMany
     public List<Kritika> getKritike() {
         return kritike;
     }
