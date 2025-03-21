@@ -1,11 +1,14 @@
 package me.ajsa.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 import java.util.List;
-
+@Entity
 public class Djelo {
+    @Id
     private int id;
     private String naziv;
     private String opis;

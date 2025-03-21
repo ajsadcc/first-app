@@ -1,6 +1,11 @@
 package me.ajsa.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class Vrsta {
+    @Id
     private int id;
     private String naziv;
 
@@ -24,4 +29,6 @@ public class Vrsta {
     public void setNaziv(String naziv) {
         this.naziv = naziv;
     }
+
+
 }

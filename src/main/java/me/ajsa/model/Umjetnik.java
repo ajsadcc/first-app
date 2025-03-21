@@ -1,6 +1,11 @@
 package me.ajsa.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class Umjetnik {
+    @Id
     private int id;
     private String ime;
     private String prezime;

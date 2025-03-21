@@ -1,10 +1,13 @@
 package me.ajsa.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 
 import java.util.List;
-
+@Entity
 public class Kriticar {
+    @Id
     private int id;
     private String ime;
     private String prezime;

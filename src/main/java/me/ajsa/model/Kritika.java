@@ -1,6 +1,12 @@
 package me.ajsa.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class Kritika {
+    @Id
+    private int id;
     private int idDjela;
     private int idKriticar;
     private int ocjena;
