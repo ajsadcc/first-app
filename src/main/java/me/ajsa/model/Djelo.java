@@ -1,60 +1,23 @@
 package me.ajsa.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-
+import jakarta.persistence.*;
 import java.util.List;
+
 @Entity
 public class Djelo {
+
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String naziv;
-    private String opis;
-    private int godinaKreiranje;
-    @OneToMany
-    private int idUmjetnik;
-    @OneToMany
-    private int idVrsta;
-    @ManyToMany
-    private List<Kritika> kritike;
 
-    public List<Kritika> getKritike() {
-        return kritike;
-    }
+    @OneToMany(mappedBy = "djelo", cascade = CascadeType.ALL)
+    public List<Kritika> kritike;
 
-    public void setKritike(List<Kritika> kritike) {
-        this.kritike = kritike;
-    }
-
-
-    public Djelo(int id, String naziv, String opis, int godinaKreiranje, int idUmjetnika, int idVrste) {
-        this.id = id;
-        this.naziv = naziv;
-        this.opis = opis;
-        this.godinaKreiranje = godinaKreiranje;
-        this.idUmjetnik = idUmjetnika;
-        this.idVrsta = idVrste;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getGodinaKreiranje() {
-        return godinaKreiranje;
-    }
-
-    public void setGodinaKreiranje(int godinaKreiranje) {
-        this.godinaKreiranje = godinaKreiranje;
-    }
-
-    public String getOpis() {
-        return opis;
-    }
-
-    public void setOpis(String opis) {
-        this.opis = opis;
+    // Getteri i setteri
+    public Long getId() {
+        return id;
     }
 
     public String getNaziv() {
@@ -65,19 +28,11 @@ public class Djelo {
         this.naziv = naziv;
     }
 
-    public int getIdUmjetnik() {
-        return idUmjetnik;
+    public List<Kritika> getKritike() {
+        return kritike;
     }
 
-    public void setIdUmjetnik(int idUmjetnik) {
-        this.idUmjetnik = idUmjetnik;
-    }
-
-    public int getIdVrsta() {
-        return idVrsta;
-    }
-
-    public void setIdVrsta(int idVrsta) {
-        this.idVrsta = idVrsta;
+    public void setKritike(List<Kritika> kritike) {
+        this.kritike = kritike;
     }
 }
