@@ -1,9 +1,16 @@
 package me.ajsa.repository;
 
-import io.quarkus.hibernate.orm.panache.PanacheRepository;
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import me.ajsa.model.Djelo;
 
-@ApplicationScoped
-public class DjeloRepository implements PanacheRepository<Djelo> {
+@Dependent
+public class DjeloRepository {
+    @Inject
+    EntityManager em;
+    @Transactional
+public Djelo createDjelo(Djelo djelo){return em.merge(djelo);}
+
 }
