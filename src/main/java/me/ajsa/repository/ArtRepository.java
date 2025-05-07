@@ -1,49 +1,55 @@
 package me.ajsa.repository;
 
+import java.util.HashSet;
+import java.util.List;
+
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import me.ajsa.exception.ArtException;
-import me.ajsa.model.Art;
+import me.ajsa.exception.ArtistException;
+import me.ajsa.model.Artist;
 import me.ajsa.model.Rating;
-
-import java.util.List;
+import me.ajsa.model.client.ArtistArt;
 
 @Dependent
-public class ArtRepository {
+public class ArtistRepository {
 
     @Inject
-    EntityManager em;
+    private EntityManager em;
 
     @Transactional
-    public Art addArt(Art art) {
-        return em.merge(art);
+    public Artist createArtist(Artist a) {
+        return em.merge(a);
     }
 
     @Transactional
-    public List<Art> getAllArts() {
-        List<Art> arts = em.createNamedQuery(Art.GET_ALL_ARTS, Art.class).getResultList();
-        for (Art a : arts) {
-            List<Rating> ratings = em.createNamedQuery(Rating.GET_ALL_RATINGS_BY_ART, Rating.class)
-                    .setParameter("id", a.getId()).getResultList();
-            a.setRatings(ratings);
+    public List<Artist> getAllArtists() {
+        List<Artist> artists = em.createNamedQuery(Artist.GET_ALL_ARTISTS, Artist.class).getResultList();
+
+        for (Artist artist : artists) {
+            List<Rating> ratings = em.createNamedQuery(Rating.GET_RATINGS_FOR_ARTIST, Rating.class)
+                    .setParameter("id", artist.getId()).getResultList();
+
+            artist.setRatings(new HashSet<>(ratings));
         }
-        return arts;
+
+        return artists;
+    }
+
+    public List<Artist> getArtistsByName(String name) throws ArtistException {
+        List<Artist> artists = em.createNamedQuery(Artist.GET_ARTISTS_BY_NAME, Artist.class)
+                .setParameter("name", name).getResultList();
+
+        if(artists.isEmpty()) {
+            throw new ArtistException("No artists found with that name");
+        }
+
+        return artists;
     }
 
     @Transactional
-    public List<Art> getArtByTitle(String title) throws ArtException {
-        List<Art> arts = em.createNamedQuery(Art.GET_ART_BY_TITLE, Art.class)
-                .setParameter("title", title).getResultList();
-        if (arts.isEmpty()) {
-            throw new ArtException("No art found with title: " + title);
-        }
-        for (Art a : arts) {
-            List<Rating> ratings = em.createNamedQuery(Rating.GET_ALL_RATINGS_BY_ART, Rating.class)
-                    .setParameter("id", a.getId()).getResultList();
-            a.setRatings(ratings);
-        }
-        return arts;
+    public ArtistArt createArtistArt(ArtistArt a) {
+        return em.merge(a);
     }
 }
