@@ -2,6 +2,8 @@ package me.ajsa.resource;
 
 import java.util.List;
 
+import me.ajsa.model.client.ArtTimeMetrics;
+import me.ajsa.model.client.ArtistArt;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
@@ -16,6 +18,8 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import me.ajsa.exception.ArtException;
 import me.ajsa.model.Art;
+import me.ajsa.repository.ArtRepository;
+import me.ajsa.restclient.TimeClient;
 
 @Path("/art/")
 public class ArtResource {
@@ -62,15 +66,15 @@ public class ArtResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("getTime")
     public Response getTime(@QueryParam(value = "timeZone") String timeZone) {
-        TimeResponse time = timeClient.getTime(timeZone);
+        ArtTimeMetrics time = timeClient.getTime(timeZone);
         return Response.ok().entity(time).build();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("createArtArtist")
-    public Response createArtArtist(ArtArtist a) {
-        ArtArtist artArtist = artRepository.createArtArtist(a);
+    public Response createArtArtist(ArtistArt a) {
+        ArtistArt artArtist = artRepository.createArtistArt(a);
         return Response.ok().entity(artArtist).build();
     }
 }

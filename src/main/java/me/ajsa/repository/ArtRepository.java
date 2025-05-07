@@ -39,7 +39,7 @@ public class ArtRepository {
 
     @Transactional
     public List<Art> getArtsByName(String name) throws ArtException {
-        List<Art> arts = em.createNamedQuery(Art.GET_ARTS_BY_NAME, Art.class)
+        List<Art> arts = em.createNamedQuery(Art.GET_ARTS_BY_TITLE, Art.class)
                 .setParameter("name", name).getResultList();
 
         if(arts.isEmpty()) {
@@ -50,7 +50,7 @@ public class ArtRepository {
     }
 
     @Transactional
-    public ArtArtist createArtArtist(ArtArtist artArtist) {
+    public ArtistArt createArtistArt(ArtistArt artArtist) {
         return em.merge(artArtist);
     }
 }

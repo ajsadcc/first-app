@@ -1,8 +1,8 @@
 package me.ajsa.sheduel;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
-
-import io.quarkus.scheduler.Scheduled;
+//
+//import io.quarkus.scheduler.Scheduled;
 import me.ajsa.model.client.ArtTimeMetrics;
 import me.ajsa.restclient.TimeClient;
 

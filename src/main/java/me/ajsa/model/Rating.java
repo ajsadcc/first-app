@@ -1,14 +1,10 @@
 package me.ajsa.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQuery;
+import jakarta.persistence.*;
 
 @Entity
-@NamedQuery(name = Rating.GET_RATINGS_FOR_ART, query = "Select r from Rating r where r.art.id = :id")
+@NamedQuery(name = "Rating.GET_RATINGS_FOR_ART",
+        query = "SELECT r FROM Rating r WHERE r.art.id = :id")
 public class Rating {
 
     public static final String GET_RATINGS_FOR_ART = "Rating.getRatingsForArt";
@@ -20,7 +16,8 @@ public class Rating {
     private String komentar; // Zamjena za broj
 
     @ManyToOne
-    private Art art;  // Zamjena za Student vezu
+    @JoinColumn(name = "art_id")
+    private Art art; // Zamjena za Student vezu
 
     public Rating() {
         super();

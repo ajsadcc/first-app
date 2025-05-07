@@ -5,19 +5,17 @@ import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = Art.GET_ALL_ARTS, query = "Select a from Art a"),
-        @NamedQuery(name = Art.GET_ARTS_BY_TITLE, query = "Select a from Art a where a.naslov = :title"),
+        @NamedQuery(name = "Art.GET_ALL_ARTS", query = "SELECT a FROM Art a"),
+        @NamedQuery(name = "Art.GET_ARTS_BY_NAME", query = "SELECT a FROM Art a WHERE a.name = :name")
 })
 public class Art {
 
@@ -28,14 +26,12 @@ public class Art {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "art_seq")
     private Long id;
 
-    private String naslov; // umjesto ime
-    private String autor;  // umjesto prezime
-    private Date datumKreiranja; // umjesto datumRodjenja
-    private String identifikator; // umjesto jmbg
+    private String title;
+    private Date datumKreiranja;
+    private String identifikator;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "art_id")
-    private Set<Rating> ratings; // umjesto telefoni
+    @OneToMany(mappedBy = "art", cascade = CascadeType.ALL)
+    private Set<Rating> ratings;
 
     public Art() {
         super();
@@ -44,8 +40,7 @@ public class Art {
     public Art(Long id, String naslov, String autor, Date datumKreiranja, String identifikator) {
         super();
         this.id = id;
-        this.naslov = naslov;
-        this.autor = autor;
+        this.title = naslov;
         this.datumKreiranja = datumKreiranja;
         this.identifikator = identifikator;
     }
@@ -60,20 +55,13 @@ public class Art {
     }
 
     public String getNaslov() {
-        return naslov;
+        return title;
     }
 
     public void setNaslov(String naslov) {
-        this.naslov = naslov;
+        this.title = naslov;
     }
 
-    public String getAutor() {
-        return autor;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
 
     public Date getDatumKreiranja() {
         return datumKreiranja;
@@ -105,9 +93,8 @@ public class Art {
         int result = 1;
         result = prime * result + ((datumKreiranja == null) ? 0 : datumKreiranja.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((naslov == null) ? 0 : naslov.hashCode());
+        result = prime * result + ((title == null) ? 0 : title.hashCode());
         result = prime * result + ((identifikator == null) ? 0 : identifikator.hashCode());
-        result = prime * result + ((autor == null) ? 0 : autor.hashCode());
         return result;
     }
 
@@ -130,27 +117,22 @@ public class Art {
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (naslov == null) {
-            if (other.naslov != null)
+        if (title == null) {
+            if (other.title != null)
                 return false;
-        } else if (!naslov.equals(other.naslov))
+        } else if (!title.equals(other.title))
             return false;
         if (identifikator == null) {
             if (other.identifikator != null)
                 return false;
         } else if (!identifikator.equals(other.identifikator))
             return false;
-        if (autor == null) {
-            if (other.autor != null)
-                return false;
-        } else if (!autor.equals(other.autor))
-            return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "Art [id=" + id + ", naslov=" + naslov + ", autor=" + autor + ", datumKreiranja=" + datumKreiranja
+        return "Art [id=" + id + ", naslov=" + title + ", datumKreiranja=" + datumKreiranja
                 + ", identifikator=" + identifikator + "]";
     }
 }
