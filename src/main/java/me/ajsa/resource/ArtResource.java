@@ -16,7 +16,6 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import me.ajsa.exception.ArtException;
 import me.ajsa.model.Art;
-import me.ajsa.model.client.ArtTimeMetrics;
 
 @Path("/art/")
 public class ArtResource {
@@ -25,7 +24,7 @@ public class ArtResource {
     private ArtRepository artRepository;
 
     @RestClient
-    private ArtTimeMetrics timeClient;
+    private TimeClient timeClient;
 
     @ConfigProperty(name = "greeting.message")
     String message;
@@ -63,7 +62,7 @@ public class ArtResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("getTime")
     public Response getTime(@QueryParam(value = "timeZone") String timeZone) {
-        ArtTimeMetrics time = timeClient.getTime(timeZone);
+        TimeResponse time = timeClient.getTime(timeZone);
         return Response.ok().entity(time).build();
     }
 

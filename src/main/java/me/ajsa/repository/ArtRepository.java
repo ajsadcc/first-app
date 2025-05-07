@@ -7,49 +7,50 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import me.ajsa.exception.ArtistException;
-import me.ajsa.model.Artist;
+import me.ajsa.exception.ArtException;
+import me.ajsa.model.Art;
 import me.ajsa.model.Rating;
 import me.ajsa.model.client.ArtistArt;
 
 @Dependent
-public class ArtistRepository {
+public class ArtRepository {
 
     @Inject
     private EntityManager em;
 
     @Transactional
-    public Artist createArtist(Artist a) {
-        return em.merge(a);
+    public Art createArt(Art art) {
+        return em.merge(art);
     }
 
     @Transactional
-    public List<Artist> getAllArtists() {
-        List<Artist> artists = em.createNamedQuery(Artist.GET_ALL_ARTISTS, Artist.class).getResultList();
+    public List<Art> getAllArts() {
+        List<Art> arts = em.createNamedQuery(Art.GET_ALL_ARTS, Art.class).getResultList();
 
-        for (Artist artist : artists) {
-            List<Rating> ratings = em.createNamedQuery(Rating.GET_RATINGS_FOR_ARTIST, Rating.class)
-                    .setParameter("id", artist.getId()).getResultList();
+        for (Art art : arts) {
+            List<Rating> ratings = em.createNamedQuery(Rating.GET_RATINGS_FOR_ART, Rating.class)
+                    .setParameter("id", art.getId()).getResultList();
 
-            artist.setRatings(new HashSet<>(ratings));
+            art.setRatings(new HashSet<>(ratings));
         }
 
-        return artists;
+        return arts;
     }
 
-    public List<Artist> getArtistsByName(String name) throws ArtistException {
-        List<Artist> artists = em.createNamedQuery(Artist.GET_ARTISTS_BY_NAME, Artist.class)
+    @Transactional
+    public List<Art> getArtsByName(String name) throws ArtException {
+        List<Art> arts = em.createNamedQuery(Art.GET_ARTS_BY_NAME, Art.class)
                 .setParameter("name", name).getResultList();
 
-        if(artists.isEmpty()) {
-            throw new ArtistException("No artists found with that name");
+        if(arts.isEmpty()) {
+            throw new ArtException("No artworks found");
         }
 
-        return artists;
+        return arts;
     }
 
     @Transactional
-    public ArtistArt createArtistArt(ArtistArt a) {
-        return em.merge(a);
+    public ArtArtist createArtArtist(ArtArtist artArtist) {
+        return em.merge(artArtist);
     }
 }
