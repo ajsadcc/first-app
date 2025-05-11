@@ -2,9 +2,10 @@ package me.ajsa.model;
 
 import jakarta.persistence.*;
 
-@Entity
+
 @NamedQuery(name = "Rating.GET_RATINGS_FOR_ART",
         query = "SELECT r FROM Rating r WHERE r.art.id = :id")
+@Entity
 public class Rating {
 
     public static final String GET_RATINGS_FOR_ART = "Rating.getRatingsForArt";
@@ -12,12 +13,12 @@ public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rating_seq")
     private Long id;
-    private int ocjena;  // Zamjena za prefiks (brojčana ocjena)
-    private String komentar; // Zamjena za broj
+    private int ocjena;
+    private String komentar;
 
     @ManyToOne
     @JoinColumn(name = "art_id")
-    private Art art; // Zamjena za Student vezu
+    private Art art;
 
     public Rating() {
         super();
@@ -30,7 +31,6 @@ public class Rating {
         this.komentar = komentar;
     }
 
-    // Getters and setters
     public Long getId() {
         return id;
     }

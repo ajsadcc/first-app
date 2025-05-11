@@ -26,7 +26,6 @@ public class ArtRepository {
     @Transactional
     public List<Art> getAllArts() {
         List<Art> arts = em.createNamedQuery(Art.GET_ALL_ARTS, Art.class).getResultList();
-
         for (Art art : arts) {
             List<Rating> ratings = em.createNamedQuery(Rating.GET_RATINGS_FOR_ART, Rating.class)
                     .setParameter("id", art.getId()).getResultList();

@@ -12,11 +12,13 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 
-@Entity
+
 @NamedQueries({
         @NamedQuery(name = "Art.GET_ALL_ARTS", query = "SELECT a FROM Art a"),
-        @NamedQuery(name = "Art.GET_ARTS_BY_NAME", query = "SELECT a FROM Art a WHERE a.name = :name")
+        @NamedQuery(name = "Art.GET_ARTS_BY_NAME", query = "SELECT a FROM Art " +
+                "a WHERE a.title = :title")
 })
+@Entity
 public class Art {
 
     public static final String GET_ALL_ARTS = "Art.getAllArts";
