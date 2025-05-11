@@ -1,11 +1,11 @@
 package me.ajsa.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-
-@NamedQuery(name = "Rating.GET_RATINGS_FOR_ART",
-        query = "SELECT r FROM Rating r WHERE r.art.id = :id")
 @Entity
+@NamedQuery(name = Rating.GET_RATINGS_FOR_ART,
+        query = "SELECT r FROM Rating r WHERE r.art.id = :id")
 public class Rating {
 
     public static final String GET_RATINGS_FOR_ART = "Rating.getRatingsForArt";
@@ -16,8 +16,9 @@ public class Rating {
     private int ocjena;
     private String komentar;
 
+
     @ManyToOne
-    @JoinColumn(name = "art_id")
+    @JsonIgnore
     private Art art;
 
     public Rating() {

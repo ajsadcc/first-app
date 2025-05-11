@@ -2,8 +2,9 @@ package me.ajsa.resource;
 
 import java.util.List;
 
-import me.ajsa.model.client.ArtTimeMetrics;
-import me.ajsa.model.client.ArtistArt;
+import me.ajsa.model.ArtistArt;
+import me.ajsa.model.client.Country;
+import me.ajsa.restclient.HolidayClient;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
@@ -19,7 +20,6 @@ import jakarta.ws.rs.core.Response;
 import me.ajsa.exception.ArtException;
 import me.ajsa.model.Art;
 import me.ajsa.repository.ArtRepository;
-import me.ajsa.restclient.TimeClient;
 
 @Path("/art/")
 public class ArtResource {
@@ -27,8 +27,9 @@ public class ArtResource {
     @Inject
     private ArtRepository artRepository;
 
+    @Inject
     @RestClient
-    private TimeClient timeClient;
+    private HolidayClient holidayClient;
 
     @ConfigProperty(name = "greeting.message")
     String message;
@@ -62,13 +63,6 @@ public class ArtResource {
         return Response.ok().entity(arts).build();
     }
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("getTime")
-    public Response getTime(@QueryParam(value = "timeZone") String timeZone) {
-        ArtTimeMetrics time = timeClient.getTime(timeZone);
-        return Response.ok().entity(time).build();
-    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -76,5 +70,13 @@ public class ArtResource {
     public Response createArtArtist(ArtistArt a) {
         ArtistArt artArtist = artRepository.createArtistArt(a);
         return Response.ok().entity(artArtist).build();
+    }
+
+    @GET
+    @Produces
+    @Path("getCountries")
+    public List<Country> getAllCountries(){
+        List<Country> countries = holidayClient.getAllCountries();
+        return countries;
     }
 }

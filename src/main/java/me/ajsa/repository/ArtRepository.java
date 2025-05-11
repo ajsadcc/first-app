@@ -10,7 +10,7 @@ import jakarta.transaction.Transactional;
 import me.ajsa.exception.ArtException;
 import me.ajsa.model.Art;
 import me.ajsa.model.Rating;
-import me.ajsa.model.client.ArtistArt;
+import me.ajsa.model.ArtistArt;
 
 @Dependent
 public class ArtRepository {
@@ -29,7 +29,6 @@ public class ArtRepository {
         for (Art art : arts) {
             List<Rating> ratings = em.createNamedQuery(Rating.GET_RATINGS_FOR_ART, Rating.class)
                     .setParameter("id", art.getId()).getResultList();
-
             art.setRatings(new HashSet<>(ratings));
         }
 

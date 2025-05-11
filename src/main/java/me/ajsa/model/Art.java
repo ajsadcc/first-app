@@ -3,22 +3,14 @@ package me.ajsa.model;
 import java.util.Date;
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
-
-@NamedQueries({
-        @NamedQuery(name = "Art.GET_ALL_ARTS", query = "SELECT a FROM Art a"),
-        @NamedQuery(name = "Art.GET_ARTS_BY_NAME", query = "SELECT a FROM Art " +
-                "a WHERE a.title = :title")
-})
 @Entity
+
+@NamedQuery(name = Art.GET_ALL_ARTS, query = "SELECT a FROM Art a")
+
+@NamedQuery(name = "Art.GET_ARTS_BY_NAME", query = "SELECT a FROM Art " +
+                "a WHERE a.title = :title")
 public class Art {
 
     public static final String GET_ALL_ARTS = "Art.getAllArts";
@@ -32,7 +24,8 @@ public class Art {
     private Date datumKreiranja;
     private String identifikator;
 
-    @OneToMany(mappedBy = "art", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "art_id")
     private Set<Rating> ratings;
 
     public Art() {
