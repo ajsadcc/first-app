@@ -3,6 +3,9 @@ package me.ajsa.restclient;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import me.ajsa.model.client.Country;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
@@ -16,6 +19,11 @@ public interface HolidayClient {
     @Path("/AvailableCountries")
     List<Country> getAllCountries();
 
+
+    @GET
+    @Path("/{countryCode}")
+    @Produces(MediaType.APPLICATION_JSON)
+    List<HolidayDTO> getNextPublicHolidays(@PathParam("countryCode") String countryCode);
 
 
 
