@@ -1,16 +1,31 @@
 package me.ajsa.model.client;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.Data;
+
 
 @Entity
 public class HolidayType {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "holiday_type_seq")
     private Long id;
 
     private String type;
+
+    @ManyToOne
+    @JoinColumn(name = "holiday_id")
+    @JsonIgnore
+    private Holiday holiday;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getType() {
         return type;
@@ -20,11 +35,11 @@ public class HolidayType {
         this.type = type;
     }
 
-    public Long getId() {
-        return id;
+    public Holiday getHoliday() {
+        return holiday;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setHoliday(Holiday holiday) {
+        this.holiday = holiday;
     }
 }

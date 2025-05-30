@@ -1,27 +1,19 @@
 package me.ajsa.model.client;
 
-import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
 
-@Data
-@Entity
 
-public class Holiday {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "holiday_seq")
-    private Integer id;
+public class HolidayDTO{
     private String localName;
     private String name;
     private String countryCode;
     private boolean global;
-    @ElementCollection
     private List<String> counties;
     private int launchYear;
-    @OneToMany(mappedBy = "holiday", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<HolidayType> types;
+    private List<String> types;
+
 
     public String getName() {
         return name;
@@ -39,20 +31,20 @@ public class Holiday {
         this.localName = localName;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getCountryCode() {
         return countryCode;
     }
 
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
+    }
+
+    public boolean isGlobal() {
+        return global;
+    }
+
+    public void setGlobal(boolean global) {
+        this.global = global;
     }
 
     public List<String> getCounties() {
@@ -71,19 +63,12 @@ public class Holiday {
         this.launchYear = launchYear;
     }
 
-    public List<HolidayType> getTypes() {
+    public List<String> getTypes() {
         return types;
     }
 
-    public void setTypes(List<HolidayType> types) {
+    public void setTypes(List<String> types) {
         this.types = types;
     }
-
-    public boolean isGlobal() {
-        return global;
-    }
-
-    public void setGlobal(boolean global) {
-        this.global = global;
-    }
 }
+

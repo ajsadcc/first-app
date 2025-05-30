@@ -38,12 +38,16 @@ public class ArtRepository {
     @Transactional
     public List<Art> getArtsByName(String name) throws ArtException {
         List<Art> arts = em.createNamedQuery(Art.GET_ARTS_BY_TITLE, Art.class)
-                .setParameter("name", name).getResultList();
+                .setParameter("title", name).getResultList();
 
         if(arts.isEmpty()) {
             throw new ArtException("No artworks found");
         }
-
+        for (Art art : arts) {
+            List<Rating> ratings = em.createNamedQuery(Rating.GET_RATINGS_FOR_ART, Rating.class)
+                    .setParameter("id", art.getId()).getResultList();
+            art.setRatings(new HashSet<>(ratings));
+        }
         return arts;
     }
 

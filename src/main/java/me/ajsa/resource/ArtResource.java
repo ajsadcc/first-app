@@ -76,7 +76,7 @@ public class ArtResource {
     @Produces
     @Path("getCountries")
     public List<Country> getAllCountries(){
-        List<Country> countries = holidayClient.getAllCountries();
+        List<Country> countries = holidayClient.getAvailableCountries();
         return countries;
     }
 }

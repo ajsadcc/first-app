@@ -9,8 +9,8 @@ import jakarta.persistence.*;
 
 @NamedQuery(name = Art.GET_ALL_ARTS, query = "SELECT a FROM Art a")
 
-@NamedQuery(name = "Art.GET_ARTS_BY_NAME", query = "SELECT a FROM Art " +
-                "a WHERE a.title = :title")
+@NamedQuery(name = Art.GET_ARTS_BY_TITLE, query = "SELECT a FROM Art a WHERE a.title = :title")
+
 public class Art {
 
     public static final String GET_ALL_ARTS = "Art.getAllArts";
