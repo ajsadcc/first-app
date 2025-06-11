@@ -17,6 +17,7 @@ public class Rating {
     private String komentar;
 
 
+
     @ManyToOne
     @JsonIgnore
     private Art art;
@@ -63,6 +64,7 @@ public class Rating {
     public void setArt(Art art) {
         this.art = art;
     }
+
 
     @Override
     public int hashCode() {

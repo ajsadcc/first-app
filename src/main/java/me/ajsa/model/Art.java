@@ -8,13 +8,14 @@ import jakarta.persistence.*;
 @Entity
 
 @NamedQuery(name = Art.GET_ALL_ARTS, query = "SELECT a FROM Art a")
-
+@NamedQuery(name = Art.GET_ARTS_BY_ID, query = "SELECT a FROM Art a WHERE a.id = :id")
 @NamedQuery(name = Art.GET_ARTS_BY_TITLE, query = "SELECT a FROM Art a WHERE a.title = :title")
 
 public class Art {
 
     public static final String GET_ALL_ARTS = "Art.getAllArts";
     public static final String GET_ARTS_BY_TITLE = "Art.getArtsByTitle";
+    public static final String GET_ARTS_BY_ID = "Art.getArtsById";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "art_seq")
@@ -28,16 +29,21 @@ public class Art {
     @JoinColumn(name = "art_id")
     private Set<Rating> ratings;
 
+    private String fileName;
+    private String filePath;
+
     public Art() {
         super();
     }
 
-    public Art(Long id, String naslov, String autor, Date datumKreiranja, String identifikator) {
+    public Art(Long id, String naslov, String autor, Date datumKreiranja, String identifikator, String fileName, String filePath) {
         super();
         this.id = id;
         this.title = naslov;
         this.datumKreiranja = datumKreiranja;
         this.identifikator = identifikator;
+        this.fileName = fileName;
+        this.filePath = filePath;
     }
 
     // Getters and setters
@@ -80,6 +86,22 @@ public class Art {
 
     public void setRatings(Set<Rating> ratings) {
         this.ratings = ratings;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+
+    public String getFilePath() {
+        return filePath;
+    }
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     @Override

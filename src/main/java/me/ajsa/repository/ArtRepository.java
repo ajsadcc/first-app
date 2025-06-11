@@ -52,6 +52,20 @@ public class ArtRepository {
     }
 
     @Transactional
+    public Art getArtsById(int id) throws ArtException {
+        Art art = em.createNamedQuery(Art.GET_ARTS_BY_ID, Art.class)
+                .setParameter("id", id).getSingleResult();
+
+        if(art == null) {
+            throw new ArtException("No artworks found");
+        }
+            List<Rating> ratings = em.createNamedQuery(Rating.GET_RATINGS_FOR_ART, Rating.class)
+                    .setParameter("id", id).getResultList();
+            art.setRatings(new HashSet<>(ratings));
+        return art;
+    }
+
+    @Transactional
     public ArtistArt createArtistArt(ArtistArt artArtist) {
         return em.merge(artArtist);
     }
